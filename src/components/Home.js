@@ -1,29 +1,34 @@
 import React from 'react'
 import {useState, useEffect} from "react"
+import axios from "axios"
 import BlogList from './BlogList'
+
 
 
 export default function Home() {
 
-    const [blogs, setBlogs] = useState([
-        { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
-        { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
-        { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
-      ])
+    const [blogs, setBlogs] = useState(null)
 
-    const handleDelete = (id,e)=>{
-const newBlogs = blogs.filter((elt)=>(id !== elt.id) )
-setBlogs(newBlogs)
+//     const handleDelete = (id,e)=>{
+// const newBlogs = blogs.filter((elt)=>(id !== elt.id) )
+// setBlogs(newBlogs)
 
 
-    }
+    // }
 
-    useEffect(()=>console.log("jo")  )
+    useEffect(
+      axios.get('http://localhost:8000/blogs')
+  .then((res)=>(res.json()) )
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  }).then( console.log(json))
+     )
     
     return (
         <div className="home">
           
-          <BlogList blog={blogs} handleDelete={handleDelete} />  
+          {/* <BlogList blog={blogs} handleDelete={handleDelete} />   */}
         </div>
     )
 
